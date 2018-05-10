@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Bazy
+namespace CardReaderClient
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

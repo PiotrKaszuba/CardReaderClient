@@ -37,7 +37,7 @@
 	NamespaceName = "DataModels";
 
 	//LoadMySqlMetadata("MyServer", "MyDatabase", "root", "TestPassword");
-	LoadMySqlMetadata("server=150.254.44.162;user id=kaszuba;Pwd=kaszuba;persistsecurityinfo=True;database=bazy");
+	LoadMySqlMetadata("server=150.254.44.162;user id=kaszuba;Pwd=kaszuba;persistsecurityinfo=True;database=CardReaderClient");
 
 	GenerateModel();
 #>

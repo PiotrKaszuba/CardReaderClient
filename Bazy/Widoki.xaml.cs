@@ -31,7 +31,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Bazy
+namespace CardReaderClient
 {
     /// <summary>
     /// Interaction logic for Widoki.xaml
@@ -43,7 +43,7 @@ namespace Bazy
         public Widoki()
         {
             InitializeComponent();
-
+            
             List<String> list = new List<String>();
 
             CardReaderClient.CardReaderDB context = new CardReaderClient.CardReaderDB();
@@ -116,8 +116,14 @@ namespace Bazy
 
         }
 
-     
+        private void button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService navService = NavigationService.GetNavigationService(this);
+            AddStudents asd = new AddStudents();
+            navService.Navigate(asd);
 
-   
+
+
+        }
     }
 }

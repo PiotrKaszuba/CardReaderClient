@@ -112,3 +112,5 @@ D:\Piotrek\Studia\Projekty\c#\CardReaderClient\Bazy\obj\Debug\Widoki.baml
 D:\Piotrek\Studia\Projekty\c#\CardReaderClient\Bazy\obj\Debug\Bazy.g.resources
 D:\Piotrek\Studia\Projekty\c#\CardReaderClient\Bazy\obj\Debug\Bazy.Properties.Resources.resources
 D:\Piotrek\Studia\Projekty\c#\CardReaderClient\Bazy\obj\Debug\Bazy.csproj.GenerateResource.Cache
+D:\Piotrek\Studia\Projekty\c#\CardReaderClient\Bazy\obj\Debug\AddStudents.g.cs
+D:\Piotrek\Studia\Projekty\c#\CardReaderClient\Bazy\obj\Debug\AddStudents.baml
