@@ -35,7 +35,7 @@ using System.Security.Cryptography;
 namespace CardReaderClient
 {
 
-    class student
+    public class student
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -45,16 +45,17 @@ namespace CardReaderClient
 
     }
 
-    class przedmiot
+    public class przedmiot
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id_przed { get; set; }
 
         public int prow_id { get; set; }
+        public string tydzien { get; set; }
         public string dzien { get; set; }
         public string godzina { get; set; }
-        public int sala { get; set; }
+        public string sala { get; set; }
         public string nazwa { get; set; }
         //public DateTime? DataDolaczenia { get; set; }
 
@@ -79,7 +80,7 @@ namespace CardReaderClient
         */
     }
 
-        class zajecia
+    public class zajecia
         {
             [Key]
             [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -99,7 +100,7 @@ namespace CardReaderClient
             public string nazwisko { get; set; }
             public string skrot_hasla { get; set; }
     }
-        class obowiazek_obecnosci
+    public class obowiazek_obecnosci
         {
             [Key]
             [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -108,7 +109,7 @@ namespace CardReaderClient
             public int stud_id { get; set; }
             public int przed_id { get; set; }
         }
-    class obecnosc
+    public class obecnosc
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -121,7 +122,7 @@ namespace CardReaderClient
         
 
 
-    class CardReaderDB : DbContext
+    public class CardReaderDB : DbContext
         {
             public DbSet<student> student { get; set; }
         //public DbSet<raport_dzienny> raport_dzienny { get; set; }

@@ -118,9 +118,9 @@ namespace CardReaderClient
 
         private void button_Click_1(object sender, RoutedEventArgs e)
         {
-            NavigationService navService = NavigationService.GetNavigationService(this);
-            AddStudents asd = new AddStudents();
-            navService.Navigate(asd);
+            //NavigationService navService = NavigationService.GetNavigationService(this);
+            //AddStudents asd = new AddStudents();
+            //navService.Navigate(asd);
 
 
 
