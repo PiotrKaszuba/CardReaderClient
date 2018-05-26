@@ -50,12 +50,12 @@ namespace CardReaderClient
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id_przed { get; set; }
-
+        public string sala { get; set; }
         public int prow_id { get; set; }
         public string tydzien { get; set; }
         public string dzien { get; set; }
         public string godzina { get; set; }
-        public string sala { get; set; }
+        
         public string nazwa { get; set; }
         //public DateTime? DataDolaczenia { get; set; }
 
@@ -103,12 +103,22 @@ namespace CardReaderClient
     public class obowiazek_obecnosci
         {
             [Key]
-            [DatabaseGenerated(DatabaseGeneratedOption.None)]
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public int id_obec { get; set; }
 
             public int stud_id { get; set; }
             public int przed_id { get; set; }
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is  obowiazek_obecnosci)) return false;
+            if (((obowiazek_obecnosci)obj).przed_id == this.przed_id &&
+                ((obowiazek_obecnosci)obj).stud_id == this.stud_id
+               )
+                return true;
+            return false;
         }
+    }
     public class obecnosc
     {
         [Key]
@@ -116,7 +126,7 @@ namespace CardReaderClient
         public int obec_id { get; set; }
         public int zaj_id { get; set; }
 
-
+        public int stud_id { get; set; }
     }
 
         
@@ -190,7 +200,7 @@ namespace CardReaderClient
             public MainWindow()
             {
                 InitializeComponent();
-                Main.Content = new Login(Main);
+                Main.Content = new Login(Main, this);
 
          
             }

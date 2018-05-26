@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CardReaderClient"
         mc:Ignorable="d"
-        Title="LoggedIn" Height="401" Width="700">
+        Title="LoggedIn" Height="550" Width="700">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="81*"/>
@@ -15,11 +15,11 @@
 
         <Frame  Margin="200,82,0,0" Name="Main" Grid.RowSpan="2"/>
         <Button x:Name="AddStudent" Content="Dodaj studenta" HorizontalAlignment="Left" Height="28" Margin="0,8,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddStudent_Click"/>
-        <Button x:Name="AddProwadzacy" Content="Dodaj prowadzącego" HorizontalAlignment="Left" Height="28" Margin="0,132,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddProwadzacy_Click"/>
-        <Button x:Name="AddPrzedmiot" Content="Dodaj przedmiot" HorizontalAlignment="Left" Height="28" Margin="0,48,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddPrzedmiot_Click"/>
-        <Button x:Name="StartLesson" Content="Rozpocznij zajęcia" HorizontalAlignment="Left" Height="28" Margin="0,251,0,0" VerticalAlignment="Top" Width="126" Grid.Row="1"/>
-        <Button x:Name="AddObowiazek" Content="Dodaj studentów do przedmiotów" HorizontalAlignment="Left" Height="28" Margin="0,90,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1"/>
-        <Button x:Name="MySubjects" Content="Moje przedmioty" HorizontalAlignment="Left" Height="28" Margin="0,206,0,0" VerticalAlignment="Top" Width="126" Grid.Row="1"/>
+        <Button x:Name="AddProwadzacy" Content="Dodaj prowadzącego" HorizontalAlignment="Left" Height="28" Margin="0,112,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddProwadzacy_Click"/>
+        <Button x:Name="AddPrzedmiot" Content="Dodaj przedmiot" HorizontalAlignment="Left" Height="28" Margin="2,56,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddPrzedmiot_Click"/>
+        <Button x:Name="StartLesson" Content="Rozpocznij zajęcia" HorizontalAlignment="Left" Height="28" Margin="0,368,0,0" VerticalAlignment="Top" Width="126" Grid.Row="1"/>
+        <Button x:Name="AddObowiazek" Content="Dodaj studentów do przedmiotów" HorizontalAlignment="Left" Height="28" Margin="0,168,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddObowiazek_Click"/>
+        <Button x:Name="MySubjects" Content="Moje przedmioty" HorizontalAlignment="Left" Height="28" Margin="0,310,0,0" VerticalAlignment="Top" Width="126" Grid.Row="1"/>
 
     </Grid>
 </Window>

@@ -43,5 +43,10 @@ namespace CardReaderClient
         {
             Main.Content = new AddProwadzacy(mDB, logged);
         }
+
+        private void AddObowiazek_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new StudentsToSubjects(mDB, logged);
+        }
     }
 }

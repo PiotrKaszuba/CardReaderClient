@@ -64,15 +64,20 @@ namespace CardReaderClient
 
             try
             {
-                student to_delete = (from x in mDB.student where x.indeks == Int32.Parse(indeksText.Text) select x).Single();
+                int a = Int32.Parse(indeksText.Text);
+                student to_delete = (from x in mDB.student where x.indeks == a select x).First();
                 mDB.student.Remove(to_delete);
             }
+
             catch (InvalidOperationException ex)
             {
                 MessageBox.Show("Nie ma studenta o takim indeksie.");
                 return;
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
 
             try
@@ -82,8 +87,11 @@ namespace CardReaderClient
             catch (DbUpdateException ex)
             {
                 MessageBox.Show("Błąd bazy danych - nie wykonano operacji.");
+                return;
 
             }
+           
+            MessageBox.Show("Pomyślnie usunięto.");
         }
     }
 }

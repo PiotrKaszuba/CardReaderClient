@@ -23,30 +23,19 @@ namespace CardReaderClient
     {
         CardReaderDB mDB;
         Frame x;
-        public Login(Frame x)
+        MainWindow mw;
+        public Login(Frame x, MainWindow mw)
         {
             InitializeComponent();
             this.x = x;
+            this.mw = mw;
             mDB = new CardReaderDB();
+           // mDB = null;
         }
 
-        private void Imie(object sender, RoutedEventArgs e)
-        {
-            if (nameText.Text.Equals("Imie prowadzącego"))
-                nameText.Text = String.Empty;
-        }
+      
 
-        private void Nazwisko(object sender, RoutedEventArgs e)
-        {
-            if (surnameText.Text.Equals("Nazwisko prowadzącego"))
-                surnameText.Text = String.Empty;
-        }
-
-        private void Haslo(object sender, RoutedEventArgs e)
-        {
-            if (passwordBox.Password.Equals("Hasło"))
-                passwordBox.Password = String.Empty;
-        }
+       
 
        
 
@@ -86,6 +75,9 @@ namespace CardReaderClient
             byte[] bypass = System.Text.Encoding.Default.GetBytes(haslo);
 
             String hashed = ByteArrayToString(MD5(bypass, null, false));
+            
+            
+           
 
             
             IQueryable<prowadzacy> lista = (from x in mDB.prowadzacy where x.imie.Equals(imie) && x.nazwisko.Equals(nazwisko) && x.skrot_hasla.Equals(hashed) select x);
@@ -94,16 +86,38 @@ namespace CardReaderClient
                 MessageBox.Show("Nie znaleziono prowadzącego o podanych danych.");
             else
             {
-                prowadzacy logged = lista.Single();
+                prowadzacy logged = lista.First();
 
                 this.Width = 1000;
                 this.Height = 500;
                 new LoggedIn(logged, mDB).Show();
-               
+                mw.Close();
 
             }
+            
 
+        }
 
+      
+
+      
+        private void nameText_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (nameText.Text.Equals("Imie prowadzącego"))
+                nameText.Text = String.Empty;
+        }
+
+        private void surnameText_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+
+            if (surnameText.Text.Equals("Nazwisko prowadzącego"))
+                surnameText.Text = String.Empty;
+        }
+
+        private void passwordBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (passwordBox.Password.Equals("Hasło"))
+                passwordBox.Password = String.Empty;
         }
     }
 }

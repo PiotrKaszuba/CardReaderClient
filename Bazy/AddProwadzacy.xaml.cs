@@ -75,7 +75,7 @@ namespace CardReaderClient
 
             try
             {
-                prowadzacy to_delete = (from x in mDB.prowadzacy where (x.imie.Equals(imieText.Text) && x.nazwisko.Equals(nazwiskoText.Text) && x.skrot_hasla.Equals(hashed)) select x).Single();
+                prowadzacy to_delete = (from x in mDB.prowadzacy where (x.imie.Equals(imieText.Text) && x.nazwisko.Equals(nazwiskoText.Text) && x.skrot_hasla.Equals(hashed)) select x).First();
                 mDB.prowadzacy.Remove(to_delete);
             }
             catch (InvalidOperationException ex)
@@ -93,8 +93,9 @@ namespace CardReaderClient
             catch (DbUpdateException ex)
             {
                 MessageBox.Show("Błąd bazy danych - nie wykonano operacji.");
-
+                return;
             }
+            MessageBox.Show("Pomyślnie usunięto.");
         }
     }
 }
