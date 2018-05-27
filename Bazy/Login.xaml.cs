@@ -88,8 +88,8 @@ namespace CardReaderClient
             {
                 prowadzacy logged = lista.First();
 
-                this.Width = 1000;
-                this.Height = 500;
+                this.Width = 1200;
+                this.Height = 700;
                 new LoggedIn(logged, mDB).Show();
                 mw.Close();
 

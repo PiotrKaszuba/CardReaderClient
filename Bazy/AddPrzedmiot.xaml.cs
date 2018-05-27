@@ -48,6 +48,7 @@ namespace CardReaderClient
             catch (DbUpdateException ex)
             {
                 MessageBox.Show("Błąd bazy danych - nie wykonano operacji.");
+                mDB = new CardReaderDB();
 
             }
             catch (Exception ex)
@@ -78,6 +79,7 @@ namespace CardReaderClient
             catch (DbUpdateException ex)
             {
                 MessageBox.Show("Błąd bazy danych - nie wykonano operacji.");
+                mDB = new CardReaderDB();
                 return;
             }
             MessageBox.Show("Pomyślnie usunięto.");

@@ -48,5 +48,15 @@ namespace CardReaderClient
         {
             Main.Content = new StudentsToSubjects(mDB, logged);
         }
+
+        private void MySubjects_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new MySubjects(mDB, logged);
+        }
+
+        private void StartLesson_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new StartLesson(mDB, logged);
+        }
     }
 }

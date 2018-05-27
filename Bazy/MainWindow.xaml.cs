@@ -103,11 +103,13 @@ namespace CardReaderClient
     public class obowiazek_obecnosci
         {
             [Key]
-            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            public int id_obec { get; set; }
-
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
             public int stud_id { get; set; }
-            public int przed_id { get; set; }
+        [Key]
+        [Column(Order = 2)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int przed_id { get; set; }
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
@@ -122,10 +124,12 @@ namespace CardReaderClient
     public class obecnosc
     {
         [Key]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int obec_id { get; set; }
         public int zaj_id { get; set; }
-
+        [Key]
+        [Column(Order = 2)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int stud_id { get; set; }
     }
 
