@@ -63,12 +63,48 @@ namespace CardReaderClient
             lastclick = rowContainer;
         }
 
+
+        /*private DateTime? convert(DateTime time)
+        {
+            TimeSpan t = time.TimeOfDay;
+            DateTime d = time.Date;
+            TimeSpan t1 = new TimeSpan(8, 0, 0);
+            TimeSpan t2 = new TimeSpan(9, 45, 0);
+            TimeSpan t3 = new TimeSpan(11, 45, 0);
+            TimeSpan t4 = new TimeSpan(13, 30, 0);
+            TimeSpan t5 = new TimeSpan(15, 10, 0);
+            TimeSpan t6 = new TimeSpan(16, 50, 0);
+            TimeSpan t7 = new TimeSpan(18, 30, 0);
+            TimeSpan t8 = new TimeSpan(20, 0, 0);
+
+            if (t >= t1 && t < t2)
+                t = t1;
+            else if (t >= t2 && t < t3)
+                t = t2;
+            else if (t >= t3 && t < t4)
+                t = t3;
+            else if (t >= t4 && t < t5)
+                t = t4;
+            else if (t >= t5 && t < t6)
+                t = t5;
+            else if (t >= t6 && t < t7)
+                t = t6;
+            else if (t >= t7 && t < t8)
+                t = t7;
+            else return null;
+           
+            d = d.Add(t);
+          
+
+            return d;
+
+        }*/
         private void button_Click(object sender, RoutedEventArgs e)
         {
             
             try {
                 int id_przed = (from x in przedmiot_cols where x.przedmiot_info.Equals(przedmiot) select x.przed_id).First();
-                mDB.zajecia.Add(new zajecia { nazwa = textBox.Text, typ_zaj = id_przed, data = DateTime.Now });
+                mDB.zajecia.Add(new zajecia { nazwa = textBox.Text, typ_zaj = id_przed, data = DateTime.Now.Date });
 
             if (mDB.SaveChanges() == 1)
                 MessageBox.Show("Pomyślnie dodano zajęcia.");

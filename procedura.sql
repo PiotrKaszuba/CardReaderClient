@@ -38,7 +38,7 @@ elseif (@godzina_minuty >= '15:10' and @godzina_minuty < '16:40') then
 	set @hou= '15:10';
 elseif (@godzina_minuty >= '16:50' and @godzina_minuty < '18:20') then
 	set @hou = '16:50';
-elseif (@godzina_minuty >= '18:30' and @godzina_minuty < '23:00') then
+elseif (@godzina_minuty >= '18:30' and @godzina_minuty < '20:00') then
 	set @hou = '18:30';
 else
 Begin
@@ -82,7 +82,7 @@ end if;
 
 #ustalamy dzień zajęć dzisiejszych
 set @dzien = date(@teraz);
-
+#set @czas = STR_TO_DATE(CONCAT(@dzien, ' ', @hou), '%Y-%m-%d %H:%i:%s');
 #wyciągamy zajęcia po dniu dzisiejszym i typie przedmiotu ustalonym wcześniej
 #zakładamy, że jeden przedmiot nie będzie więcej niż raz na dzień dla studenta
 Select zajecia.id_zajec, Count(zajecia.id_zajec) into id_za, ile from zajecia where date(zajecia.data) = @dzien and zajecia.typ_zaj in (id_przedmiotu) order by zajecia.data desc limit 1;

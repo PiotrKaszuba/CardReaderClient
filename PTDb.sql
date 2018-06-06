@@ -18,11 +18,14 @@ USE `logowanieobecnosci`;
 
 -- Zrzut struktury procedura logowanieobecnosci.Add_student
 DELIMITER //
-CREATE DEFINER=`skip-grants user`@`skip-grants host` PROCEDURE `Add_student`(IN ind integer)
-BEGIN
+CREATE DEFINER=`skip-grants user`@`skip-grants host` PROCEDURE `Add_student`(IN ind integer, OUT result integer)
+procedurka:BEGIN
+
 #deklarujemy zmienne w które będziemy ładować dane z tabel
 declare id_przedmiotu INT;
-declare id_zajec INT;
+declare id_za INT;
+declare ile INT;
+
 
 #sprawdzamy czy istnieje taki student który potwierdza swoją obecność
 if exists(Select * from student where indeks = ind) then
@@ -45,9 +48,13 @@ elseif (@godzina_minuty >= '15:10' and @godzina_minuty < '16:40') then
 	set @hou= '15:10';
 elseif (@godzina_minuty >= '16:50' and @godzina_minuty < '18:20') then
 	set @hou = '16:50';
-elseif (@godzina_minuty >= '18:30' and @godzina_minuty < '23:00') then
+elseif (@godzina_minuty >= '18:30' and @godzina_minuty < '20:00') then
 	set @hou = '18:30';
-else set @hou = '00:00';
+else
+Begin
+set result = 2;
+Leave procedurka;
+End;
 
 end if;
 
@@ -63,23 +70,46 @@ elseif(@dzien_tygodnia = 5) then
 	set @dzien_tygodnia = 'Czwartek';
 elseif(@dzien_tygodnia = 6) then
 	set @dzien_tygodnia = 'Piątek';
-
+else
+Begin
+set result = 1;
+Leave procedurka;
+End;
 end if;
 
 
 #wyciągamy przedmiot (z przedmiotów na które chodzi logujący się student - zagnieżdżony select) 
 #po dniu tygodnia i godzinie - zakładamy, że student powinien mieć tylko jeden taki przedmiot
-Select przed_id into id_przedmiotu from  przedmiot, (Select przed_id from obowiazek_obecnosci where stud_id = ind) as przed
+Select przedmiot.id_przed, Count(przedmiot.id_przed) into id_przedmiotu, ile from  przedmiot, (Select obowiazek_obecnosci.przed_id from obowiazek_obecnosci where stud_id = ind) as przed
 where przedmiot.dzien = @dzien_tygodnia and przedmiot.godzina = @hou and przedmiot.id_przed in (przed.przed_id);
+
+if(ile =0) then
+Begin
+set result = 3;
+Leave procedurka;
+End;
+end if;
 
 #ustalamy dzień zajęć dzisiejszych
 set @dzien = date(@teraz);
-
+#set @czas = STR_TO_DATE(CONCAT(@dzien, ' ', @hou), '%Y-%m-%d %H:%i:%s');
 #wyciągamy zajęcia po dniu dzisiejszym i typie przedmiotu ustalonym wcześniej
 #zakładamy, że jeden przedmiot nie będzie więcej niż raz na dzień dla studenta
-Select zaj_id into id_zajec from zajecia where date(zajecia.data) = @dzien and zajecia.typ_zaj in (id_przedmiotu) order by zajecia.data desc limit 1;
+Select zajecia.id_zajec, Count(zajecia.id_zajec) into id_za, ile from zajecia where date(zajecia.data) = @dzien and zajecia.typ_zaj in (id_przedmiotu) order by zajecia.data desc limit 1;
 
+
+if(ile =0) then
+Begin
+set result = 4;
+Leave procedurka;
 End;
+end if;
+
+insert into obecnosc values(id_za, ind);
+set result = 5;
+End;
+else 
+set result =9;
 
 end if;
 
@@ -123,9 +153,9 @@ CREATE TABLE IF NOT EXISTS `prowadzacy` (
   `skrot_hasla` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_prow`),
   UNIQUE KEY `Indeks 2` (`imie`,`nazwisko`,`skrot_hasla`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Zrzucanie danych dla tabeli logowanieobecnosci.prowadzacy: ~1 rows (około)
+-- Zrzucanie danych dla tabeli logowanieobecnosci.prowadzacy: ~0 rows (około)
 /*!40000 ALTER TABLE `prowadzacy` DISABLE KEYS */;
 INSERT IGNORE INTO `prowadzacy` (`id_prow`, `imie`, `nazwisko`, `skrot_hasla`) VALUES
 	(1, 'admin', 'admin', '76F02324451CE619B9335592E1531CF80EC5BF1997EB80AF5141EF8509758628');
@@ -142,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `przedmiot` (
   PRIMARY KEY (`id_przed`),
   KEY `FK_przedmiot_prowadzacy` (`prow_id`),
   CONSTRAINT `FK_przedmiot_prowadzacy` FOREIGN KEY (`prow_id`) REFERENCES `prowadzacy` (`id_prow`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- Zrzucanie danych dla tabeli logowanieobecnosci.przedmiot: ~0 rows (około)
 /*!40000 ALTER TABLE `przedmiot` DISABLE KEYS */;
@@ -167,9 +197,10 @@ CREATE TABLE IF NOT EXISTS `zajecia` (
   `nazwa` varchar(50) DEFAULT NULL,
   `typ_zaj` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_zajec`),
+  UNIQUE KEY `Indeks 3` (`data`,`typ_zaj`),
   KEY `FK_zajecia_przedmiot` (`typ_zaj`),
   CONSTRAINT `FK_zajecia_przedmiot` FOREIGN KEY (`typ_zaj`) REFERENCES `przedmiot` (`id_przed`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- Zrzucanie danych dla tabeli logowanieobecnosci.zajecia: ~0 rows (około)
 /*!40000 ALTER TABLE `zajecia` DISABLE KEYS */;
