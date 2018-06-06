@@ -51,11 +51,12 @@ namespace CardReaderClient
 
 
 
-        public static byte[] MD5(byte[] bytes, byte[] Salt, Boolean use_salt)
+        public static byte[] sha(byte[] bytes)
         {
-            MD5CryptoServiceProvider instance = new MD5CryptoServiceProvider();
+            byte[] Salt = System.Text.Encoding.Default.GetBytes("DajPan3AlboNawet4Albo4.5BoChybaNie5?");
+            SHA256CryptoServiceProvider instance = new SHA256CryptoServiceProvider();
 
-            return compute(bytes, Salt, instance, use_salt);
+            return compute(bytes, Salt, instance, true);
         }
 
         public static string ByteArrayToString(byte[] ba)
@@ -74,7 +75,7 @@ namespace CardReaderClient
             String haslo = passwordBox.Password;
             byte[] bypass = System.Text.Encoding.Default.GetBytes(haslo);
 
-            String hashed = ByteArrayToString(MD5(bypass, null, false));
+            String hashed = ByteArrayToString(sha(bypass));
             
             
            

@@ -37,7 +37,7 @@ namespace CardReaderClient
            
             byte[] bypass = System.Text.Encoding.Default.GetBytes(password);
 
-            return  Login.ByteArrayToString(Login.MD5(bypass, null, false));
+            return  Login.ByteArrayToString(Login.sha(bypass));
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {

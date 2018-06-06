@@ -45,7 +45,7 @@ namespace CardReaderClient
         public void refresh()
         {
             
-            przedmiot_cols = (from x in mDB.przedmiot where x.prow_id == prowadzacy.id_prow select new przedmiot_coll{ przedmiot_info = new przedmiot_info { nazwa = x.nazwa, tydzien = x.tydzien, dzien = x.dzien, godzina = x.godzina, sala = x.sala }, przed_id = x.id_przed, prow_id = x.prow_id }).ToList();
+            przedmiot_cols = (from x in mDB.przedmiot where x.prow_id == prowadzacy.id_prow select new przedmiot_coll{ przedmiot_info = new przedmiot_info { nazwa = x.nazwa, dzien = x.dzien, godzina = x.godzina, sala = x.sala }, przed_id = x.id_przed, prow_id = x.prow_id }).ToList();
             dataGrid.ItemsSource = (from x in przedmiot_cols select x.przedmiot_info);
         }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CardReaderClient"
         mc:Ignorable="d"
-        Title="LoggedIn" Height="650" Width="800">
+        Title="LoggedIn" Height="570" Width="700">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="81*"/>
@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="welcome" Content="ds" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="2.1,0.37" Height="27" Margin="10,28,0,0" Width="183"/>
 
-        <Frame  Margin="200,82,0,0" Name="Main" Grid.RowSpan="2"/>
+        <Frame NavigationUIVisibility="Hidden"  Margin="200,82,0,0" Name="Main" Grid.RowSpan="2"/>
         <Button x:Name="AddStudent" Content="Dodaj studenta" HorizontalAlignment="Left" Height="28" Margin="0,8,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddStudent_Click"/>
         <Button x:Name="AddProwadzacy" Content="Dodaj prowadzącego" HorizontalAlignment="Left" Height="28" Margin="0,112,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddProwadzacy_Click"/>
         <Button x:Name="AddPrzedmiot" Content="Dodaj przedmiot" HorizontalAlignment="Left" Height="28" Margin="2,56,0,0" VerticalAlignment="Top" Width="193" Grid.Row="1" Click="AddPrzedmiot_Click"/>

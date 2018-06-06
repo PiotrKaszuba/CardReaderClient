@@ -24,7 +24,7 @@ namespace CardReaderClient
        
         
         public string dzien { get; set; }
-        public string tydzien { get; set; }
+      
         
         public string godzina { get; set; }
         public string sala { get; set; }
@@ -35,7 +35,7 @@ namespace CardReaderClient
             if (!(obj is przedmiot_info)) return false;
             if (((przedmiot_info)obj).nazwa.Equals(this.nazwa) &&
                 ((przedmiot_info)obj).dzien.Equals(this.dzien) &&
-                ((przedmiot_info)obj).tydzien.Equals(this.tydzien) &&
+               
                 ((przedmiot_info)obj).godzina.Equals(this.godzina) &&
                 ((przedmiot_info)obj).sala.Equals(this.sala))
                 return true;
@@ -57,7 +57,7 @@ namespace CardReaderClient
     {
         private CardReaderDB mDB;
         private prowadzacy prowadzacy;
-        private przedmiot_info przedmiot;
+        private przedmiot_info przedmiot = null;
         private IEnumerable<przedmiot_coll> przedmiot_cols;
         public MySubjects(CardReaderDB mDB, prowadzacy prowadzacy)
         {
@@ -74,7 +74,7 @@ namespace CardReaderClient
         }
         public void refresh()
         {
-            przedmiot_cols = (from x in mDB.przedmiot where x.prow_id == prowadzacy.id_prow select new przedmiot_coll { przedmiot_info = new przedmiot_info { nazwa = x.nazwa, tydzien = x.tydzien, dzien = x.dzien, godzina = x.godzina, sala=x.sala }, przed_id = x.id_przed, prow_id=x.prow_id }).ToList();
+            przedmiot_cols = (from x in mDB.przedmiot where x.prow_id == prowadzacy.id_prow select new przedmiot_coll { przedmiot_info = new przedmiot_info { nazwa = x.nazwa, dzien = x.dzien, godzina = x.godzina, sala=x.sala }, przed_id = x.id_przed, prow_id=x.prow_id }).ToList();
             dataGrid.ItemsSource = (from x in przedmiot_cols select x.przedmiot_info);
         }
 
@@ -95,7 +95,7 @@ namespace CardReaderClient
             int id_przed = (from x in przedmiot_cols where x.przedmiot_info.Equals(przedmiot) select x.przed_id).First();
             List<int> obowiazki = (from x in mDB.obowiazek_obecnosci where x.przed_id == id_przed select x.stud_id).ToList();
             List<student> studenci = (from x in mDB.student where obowiazki.Contains(x.indeks) select x).ToList();
-            
+            dt.Columns.Add("Temat");
             foreach (student stud in studenci)
             {
                 dt.Columns.Add(stud.nazwisko +" "+ stud.indeks, typeof(Boolean));
@@ -104,7 +104,8 @@ namespace CardReaderClient
             foreach (zajecia zaj in zajecia)
             {
                 DataRow row = dt.NewRow();
-                int i = 0;
+                row[0] = zaj.nazwa;
+                int i = 1;
                 foreach (student stud in studenci)
                 {
                     Boolean temp = false;
@@ -118,6 +119,15 @@ namespace CardReaderClient
                 dt.Rows.Add(row);
             }
             return dt;
-        } 
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            mDB = new CardReaderDB();
+            if (przedmiot != null)
+            {
+                dataGridObec.ItemsSource = getData().DefaultView;
+            }
+        }
     }
 }

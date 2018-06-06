@@ -39,7 +39,7 @@ namespace CardReaderClient
         {
             try
             {
-                mDB.przedmiot.Add(new przedmiot { nazwa = nazwaText.Text, sala = salaText.Text, tydzien = ((ComboBoxItem)tydzienBox.SelectedItem).Content.ToString(), dzien = ((ComboBoxItem)dzienBox.SelectedItem).Content.ToString(), godzina = ((ComboBoxItem)godzinaBox.SelectedItem).Content.ToString(), prow_id = prowadzacy.id_prow });
+                mDB.przedmiot.Add(new przedmiot { nazwa = nazwaText.Text, sala = salaText.Text, dzien = ((ComboBoxItem)dzienBox.SelectedItem).Content.ToString(), godzina = ((ComboBoxItem)godzinaBox.SelectedItem).Content.ToString(), prow_id = prowadzacy.id_prow });
                 if (mDB.SaveChanges() == 1)
                     MessageBox.Show("Pomyślnie dodano.");
                 else

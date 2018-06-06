@@ -48,11 +48,11 @@ namespace CardReaderClient
     public class przedmiot
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_przed { get; set; }
         public string sala { get; set; }
         public int prow_id { get; set; }
-        public string tydzien { get; set; }
+       
         public string dzien { get; set; }
         public string godzina { get; set; }
         
@@ -83,7 +83,7 @@ namespace CardReaderClient
     public class zajecia
         {
             [Key]
-            [DatabaseGenerated(DatabaseGeneratedOption.None)]
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public int id_zajec { get; set; }
             public DateTime? data { get; set; }
             public string nazwa { get; set; }
@@ -94,7 +94,7 @@ namespace CardReaderClient
         public class prowadzacy
         {
             [Key]
-            [DatabaseGenerated(DatabaseGeneratedOption.None)]
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public int id_prow { get; set; }
             public string imie { get; set; }
             public string nazwisko { get; set; }
