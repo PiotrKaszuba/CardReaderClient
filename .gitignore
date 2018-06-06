@@ -1,8 +1,0 @@
-*.csproj
-*.exe
-*.config
-*.pdb
-*.manifest
-Debug
-*.sln
-/.vs/CardReaderClient/v14/*.suo
